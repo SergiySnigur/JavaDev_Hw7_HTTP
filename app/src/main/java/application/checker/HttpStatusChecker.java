@@ -1,5 +1,6 @@
 package application.checker;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -19,10 +20,9 @@ public class HttpStatusChecker {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 404) {
-            throw new IOException("Not found " + code + "!");
+            throw new FileNotFoundException("There is not image for HTTP status " + code);
         } else {
             return "https://http.cat/" + code + ".jpg";
         }
     }
-
 }

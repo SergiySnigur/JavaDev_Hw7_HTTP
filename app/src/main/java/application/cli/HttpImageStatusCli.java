@@ -3,13 +3,13 @@ package application.cli;
 import application.checker.HttpStatusChecker;
 import application.downloader.HttpStatusImageDownloader;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class HttpImageStatusCli {
     public void askStatus() {
         HttpStatusImageDownloader downloader = new HttpStatusImageDownloader();
-        HttpStatusChecker checker = new HttpStatusChecker();
 
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter HTTP status code: ");
@@ -18,7 +18,7 @@ public class HttpImageStatusCli {
                 try {
                     downloader.downloadStatusImage(Integer.parseInt(statusCode));
                 } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             } else {
                 System.out.println("Please enter valid number!");
